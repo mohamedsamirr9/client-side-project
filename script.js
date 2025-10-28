@@ -82,6 +82,7 @@ if (document.body.classList.contains("question-page")) {
   var optionsContainer = document.getElementById("options");
   var questionNumber = document.getElementById("question-number");
   var markedList = document.getElementById("marked-list");
+  var marks = 0;
 
   function loadQuestion(index) {
     var q = questions[index];
@@ -133,6 +134,17 @@ if (document.body.classList.contains("question-page")) {
       updateMarkedList();
     }
   });
+  document.getElementById("end-btn").addEventListener("click", function () {
+    userAnswers.map((answer, i) => {
+      if (questions[i].answer === answer) {
+        marks += 10;
+      }
+    });
+    clearInterval(timer);
+    localStorage.setItem("marks", marks);
+    localStorage.setItem("timeout", false);
+    //window.location.href = "grade.html";
+  });
 
   function updateMarkedList() {
     markedList.innerHTML = "";
@@ -167,8 +179,13 @@ if (document.body.classList.contains("question-page")) {
 
     if (totalTime <= 0) {
       clearInterval(timer);
+      localStorage.setItem("timeout", true);
+      //window.location.href = "grade.html";
     }
   }, 1000);
 }
 
-//home-page//
+//grade-page//
+if (document.body.classList.contains("grade-page")) {
+  console.log("hi");
+}
