@@ -134,7 +134,7 @@ if (document.body.classList.contains("question-page")) {
       updateMarkedList();
     }
   });
-  document.getElementById("end-btn").addEventListener("click", function () {
+  function endQuiz(timeout) {
     userAnswers.map((answer, i) => {
       if (questions[i].answer === answer) {
         marks += 10;
@@ -142,8 +142,11 @@ if (document.body.classList.contains("question-page")) {
     });
     clearInterval(timer);
     localStorage.setItem("marks", marks);
-    localStorage.setItem("timeout", false);
-    //window.location.href = "grade.html";
+    localStorage.setItem("timeout", timeout);
+    window.location.href = "grade.html";
+  }
+  document.getElementById("end-btn").addEventListener("click", () => {
+    endQuiz(false);
   });
 
   function updateMarkedList() {
@@ -165,7 +168,7 @@ if (document.body.classList.contains("question-page")) {
     }
   }
 
-  var totalTime = 15 * 60;
+  var totalTime = 10;
   var timeDisplay = document.getElementById("time");
   var progressBar = document.querySelector(".progress");
 
@@ -178,14 +181,40 @@ if (document.body.classList.contains("question-page")) {
     progressBar.style.width = (totalTime / (15 * 60)) * 100 + "%";
 
     if (totalTime <= 0) {
-      clearInterval(timer);
-      localStorage.setItem("timeout", true);
-      //window.location.href = "grade.html";
+      endQuiz(true);
     }
   }, 1000);
 }
 
 //grade-page//
 if (document.body.classList.contains("grade-page")) {
-  console.log("hi");
+  var grade = localStorage.getItem("marks");
+  var timeout = localStorage.getItem("timeout");
+  var gradeHeader = document.querySelector(".grade-header");
+  var gradePara = document.querySelector(".para-1");
+  var score = document.querySelector(".score");
+  var circle = document.querySelector(".score-circle");
+  var resultPara = document.querySelector(".result-para");
+  var gradeImg = document.querySelector(".grade-img");
+
+  if (+grade < 50) {
+    gradeHeader.textContent = "“Oops!”";
+    gradeHeader.style.color = "red";
+    gradePara.textContent =
+      "You completed the quiz, but your score was below the pass.";
+    resultPara.textContent = "You didn’t pass the quiz.";
+    resultPara.style.color = "red";
+    score.textContent = grade;
+    gradeImg.src = "img/failed.png";
+
+    circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
+  } else {
+    gradeHeader.textContent = "Congratulations!";
+    gradePara.textContent =
+      "You've completed the quiz.It was super fun talking to you.\nWe hope You've Learned Sometimes New About Working Parent Today.";
+    resultPara.textContent = "You Passed The Lesson.";
+    score.textContent = grade;
+    gradeImg.src = "img/passed.png";
+    circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
+  }
 }
