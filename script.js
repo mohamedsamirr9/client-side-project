@@ -134,7 +134,7 @@ if (document.body.classList.contains("question-page")) {
       updateMarkedList();
     }
   });
-  function endQuiz(timeout) {
+  function endQuiz(timeout, page) {
     userAnswers.map((answer, i) => {
       if (questions[i].answer === answer) {
         marks += 10;
@@ -143,10 +143,10 @@ if (document.body.classList.contains("question-page")) {
     clearInterval(timer);
     localStorage.setItem("marks", marks);
     localStorage.setItem("timeout", timeout);
-    window.location.href = "grade.html";
+    window.location.href = page;
   }
   document.getElementById("end-btn").addEventListener("click", () => {
-    endQuiz(false);
+    endQuiz(false, "grade.html");
   });
 
   function updateMarkedList() {
@@ -168,7 +168,7 @@ if (document.body.classList.contains("question-page")) {
     }
   }
 
-  var totalTime = 10;
+  var totalTime = 15 * 60;
   var timeDisplay = document.getElementById("time");
   var progressBar = document.querySelector(".progress");
 
@@ -181,7 +181,7 @@ if (document.body.classList.contains("question-page")) {
     progressBar.style.width = (totalTime / (15 * 60)) * 100 + "%";
 
     if (totalTime <= 0) {
-      endQuiz(true);
+      endQuiz(true, "timeout.html");
     }
   }, 1000);
 }
@@ -215,6 +215,24 @@ if (document.body.classList.contains("grade-page")) {
     resultPara.textContent = "You Passed The Lesson.";
     score.textContent = grade;
     gradeImg.src = "img/passed.png";
+    circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
+  }
+}
+//timeout--page//
+if (document.body.classList.contains("timeout-page")) {
+  var grade = localStorage.getItem("marks");
+  var timeout = localStorage.getItem("timeout");
+  var score = document.querySelector(".score");
+  var circle = document.querySelector(".score-circle");
+  var resultPara = document.querySelector(".result-para");
+  if (+grade < 50) {
+    resultPara.textContent = "You didn’t pass the quiz.";
+    resultPara.style.color = "red";
+    score.textContent = grade;
+    circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
+  } else {
+    resultPara.textContent = "You Passed The Lesson.";
+    score.textContent = grade;
     circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
   }
 }
