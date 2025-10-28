@@ -1,51 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exam Page - Question System</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Page - Question System</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-  <div class="exam-container">
-    <div class="exam-header">
-      <h2 id="question-number">Question 1 of 10</h2>
+  <body class="question-page">
+    <div class="exam-container">
+      <div class="exam-header">
+        <h2 id="question-number">Question 1 of 10</h2>
 
-      <div class="timer-bar">
-        <div class="progress"></div>
-      </div>
-      <div class="timer-text">
-        Time Left: <span id="time">15:00</span>
-      </div>
-    </div>
-
-    <div class="exam-content">
-      <div class="main-box">
-        <div class="question-box">
-          <div id="question-text" class="question-text"></div>
-          <div id="options" class="options"></div>
-        </div> 
-
-        <div class="buttons">
-          <button id="prev-btn">Previous</button>
-          <button id="mark-btn" class="mark-btn">Mark Question</button>
-          <button id="next-btn">Next</button>
-          <button id="end-btn" class="end-btn">Submit Exam</button>
+        <div class="timer-bar">
+          <div class="progress"></div>
         </div>
+        <div class="timer-text">Time Left: <span id="time">15:00</span></div>
       </div>
 
-     
-      <div class="sidebar">
-        <h3>Marked Questions</h3>
-        <div id="marked-list" class="marked-list">
+      <div class="exam-content">
+        <div class="main-box">
+          <div class="question-box">
+            <div id="question-text" class="question-text"></div>
+            <div id="options" class="options"></div>
+          </div>
 
+          <div class="buttons">
+            <button id="prev-btn">Previous</button>
+            <button id="mark-btn" class="mark-btn">Mark Question</button>
+            <button id="next-btn">Next</button>
+            <button id="end-btn" class="end-btn">Submit Exam</button>
+          </div>
+        </div>
+
+        <div class="sidebar">
+          <h3>Marked Questions</h3>
+          <div id="marked-list" class="marked-list"></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
-
