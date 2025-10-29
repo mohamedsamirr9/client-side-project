@@ -75,21 +75,20 @@ if (document.body.classList.contains("question-page")) {
     },
   ];
 
-function mixQuestions(array) {
-  for (var i = array.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
+  function mixQuestions(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
   }
-  return array;
-}
 
-questions = mixQuestions(questions);
+  questions = mixQuestions(questions);
   var currentQuestion = 0;
   var userAnswers = new Array(questions.length).fill(null);
   var markedQuestions = [];
-
 
   var questionText = document.getElementById("question-text");
   var optionsContainer = document.getElementById("options");
@@ -181,7 +180,7 @@ questions = mixQuestions(questions);
     }
   }
 
-  var totalTime = 15 * 60;
+  var totalTime = 5;
   var timeDisplay = document.getElementById("time");
   var progressBar = document.querySelector(".progress");
 
@@ -209,12 +208,13 @@ if (document.body.classList.contains("grade-page")) {
   var circle = document.querySelector(".score-circle");
   var resultPara = document.querySelector(".result-para");
   var gradeImg = document.querySelector(".grade-img");
+  var users = JSON.parse(localStorage.getItem("users"));
+  var username = users[0].username.toUpperCase();
 
   if (+grade < 50) {
     gradeHeader.textContent = "“Oops!”";
     gradeHeader.style.color = "red";
-    gradePara.textContent =
-      "You completed the quiz, but your score was below the pass.";
+    gradePara.textContent = `${username}, You completed the quiz, but your score was below the pass.`;
     resultPara.textContent = "You didn’t pass the quiz.";
     resultPara.style.color = "red";
     score.textContent = grade;
@@ -223,9 +223,9 @@ if (document.body.classList.contains("grade-page")) {
     circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
   } else {
     gradeHeader.textContent = "Congratulations!";
-    gradePara.textContent =
-      "You've completed the quiz.It was super fun talking to you.\nWe hope You've Learned Sometimes New About Working Parent Today.";
-    resultPara.textContent = "You Passed The Lesson.";
+    gradePara.textContent = `Well done, ${username}! You’ve completed the Client Side quiz.
+Keep learning and exploring the front-end world! 💻`;
+    resultPara.textContent = "You Passed The Quiz.";
     score.textContent = grade;
     gradeImg.src = "img/passed.png";
     circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
@@ -238,13 +238,16 @@ if (document.body.classList.contains("timeout-page")) {
   var score = document.querySelector(".score");
   var circle = document.querySelector(".score-circle");
   var resultPara = document.querySelector(".result-para");
+  var users = JSON.parse(localStorage.getItem("users"));
+  var username = users[0].username.toUpperCase();
+
   if (+grade < 50) {
-    resultPara.textContent = "You didn’t pass the quiz.";
+    resultPara.textContent = `${username}, You didn’t pass the quiz.`;
     resultPara.style.color = "red";
     score.textContent = grade;
     circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
   } else {
-    resultPara.textContent = "You Passed The Lesson.";
+    resultPara.textContent = `${username}, You passed The quiz.`;
     score.textContent = grade;
     circle.style.background = `conic-gradient(#00bcd4 0% ${grade}%, #e0e0e0 ${grade}% 100%)`;
   }
