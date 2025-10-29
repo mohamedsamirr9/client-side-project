@@ -1,4 +1,5 @@
 //question-page//
+
 if (document.body.classList.contains("question-page")) {
   var questions = [
     {
@@ -74,9 +75,21 @@ if (document.body.classList.contains("question-page")) {
     },
   ];
 
+function mixQuestions(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+
+questions = mixQuestions(questions);
   var currentQuestion = 0;
   var userAnswers = new Array(questions.length).fill(null);
   var markedQuestions = [];
+
 
   var questionText = document.getElementById("question-text");
   var optionsContainer = document.getElementById("options");
