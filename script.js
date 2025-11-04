@@ -180,7 +180,7 @@ if (document.body.classList.contains("question-page")) {
     }
   }
 
-  var totalTime = 5;
+  var totalTime = 15;
   var timeDisplay = document.getElementById("time");
   var progressBar = document.querySelector(".progress");
 
